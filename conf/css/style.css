@@ -1,39 +1,36 @@
-/*title page*/
-  .title-slide {
-    background-image: url('../../images/bg.jpg');
-    background-color: #23373B;
-    background-size: contain;
-    border: 0px;
-    background-position: 600px 0;
-    line-height: 1;
-    padding: 10em 2em 1em 2em!important;
+  .remark-slide-content h1 {
+    margin-top: -88px;
+    margin-left: -00px;
+    margin-bottom: 40px;
+    color: #FAFAFA;
   }
 
-  .lab-logo {
+/*title page*/
+  .title-slide {
+    background-image: url('../../images/graph.png');
+    background-color: #23373B;
+    background-size: 650px;
+    border: 0px!important;
+    background-position: 130% 70%;
+    line-height: 1;
+    padding: 2em 2em 1em 2em!important;
+  }
+
+  .my-logo-left {
     content: "";
-    position: absolute;
-    top:    15px;
-    left:   35px;
-    height: 73px;
-    width:  220px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url(../../images/IE_logo_renversé.png);
+        position: absolute;
+        top:    5px;
+        left:   38px;
+        height: 90px;
+        width:  1220px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url(../../images/finallogowhite.png);
    }
-   .uni-logo {
-    content: "";
-    position: absolute;
-    top:    32px;
-    left:   243px;
-    height: 34px;
-    width:  220px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url(../../images/udes.png);
-   }
+
   .title-slide h1 {
     color: #e7e8e2;
-    font-size: 42px!important;
+    font-size: 45px!important;
     font-weight: normal;
     margin-top: 0px;
     width: 65%;
@@ -60,7 +57,7 @@
 
   .title-slide a {
     color: #e7e8e2;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: lighter;
 
   }
@@ -70,6 +67,14 @@
     font-size: 42px!important;
     font-weight: normal;
     margin-top: 0px;
+  }
+
+  /* remove page number in first slide*/
+  .notitle {
+    border-top: 0px solid #23373B!important;
+    font-size: 23px;
+    font-weight: 300;
+    padding: 1em 2em 1em 2em
   }
 
   /* remove page number in first slide*/
@@ -96,6 +101,7 @@
   
 /* slide pages */
   .remark-slide-content {
+    border-top: 80px solid #23373B;
     font-size: 23px;
     font-weight: 300;
     padding: 1em 2em 1em 2em
@@ -149,22 +155,29 @@ a {
 }
 
 /* Column */
+  .pull-center {
+    float: center;
+    width: 20%
+  }
+
   .pull-left {
     float: left;
-    width: 47%;
+    width: 40%;
   }
   .pull-right {
     float: right;
-    width: 47%;
+    width: 40%;
   }
 
   .pull-left1 {
     float: left;
-    width: 57%;
+    width: 45%;
+    text-align: right;
   }
   .pull-right1 {
     float: right;
-    width: 37%;
+    width: 45%;
+    text-align: left;
   }
 
   .pull-left2 {
@@ -175,7 +188,10 @@ a {
     float: right;
     width: 27%;
   }
-
+  .pull-rightfin {
+    float:right;
+    width: 37%
+  }
 /* Font size */
   .code10 .remark-code {
     font-size: 10%;
@@ -292,3 +308,15 @@ a {
   .font200 {
     font-size: 200%;
   }
+
+  .Large {
+    font-size: 1.5em;
+  }
+
+.box {
+ background-color:#FFFACD;
+}
+
+.box2 {
+ background-color: orange;
+}
