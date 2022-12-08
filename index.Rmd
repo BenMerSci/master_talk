@@ -83,6 +83,7 @@ class:  middle, title-slide,
   Trop d'interactions<br>
   Biais dans les interactions
 ]
+
 <br>
 <hr width="80%" align="center" size="2.0" color="orange"></hr>
 <br>
@@ -299,14 +300,17 @@ Masses corporelles prédateurs $M_j$]
 <br></p>
 
 <br>
-.center[**Rangs:**
+.center[**Rangs:**]
+
+.center[
 
 |Modèle   |   elpd_diff|  se_diff|
 |:--------|-----------:|--------:|
-|modèle 4 |        0.00|     0.00|
-|modèle 3 |      -33.51|     9.69|
-|modèle 1 |     -731.68|    43.27|
-|modèle 2 |    -1416.58|    40.75|
+|modèle 3 |        0.00|     0.00|
+|modèle 2 |      -33.51|     9.69|
+|modèle 0 |     -731.68|    43.27|
+|modèle 1 |    -1416.58|    40.75|
+
 ]
 
 ---
