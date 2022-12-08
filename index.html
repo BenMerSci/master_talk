@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Talk template</title>
+    <title>Master presentation</title>
     <meta charset="utf-8" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="assets/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
     <link href="assets/animate.css-3.7.2/animate.xaringan.css" rel="stylesheet" />
     <link href="assets/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <link href="assets/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ddd255a08e604698bb4a47ccd445d633","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"dc84d33c52bc4d27a789870ffc36a664","expires":1}</script>
     <script src="assets/himalaya-1.1.0/himalaya.js"></script>
     <script src="assets/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="assets/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -29,18 +29,353 @@
 
 
 
-class:  middle, title-slide, 
+class:  middle, title-slide,
 
 &lt;div class="my-logo-left"&gt;&lt;/div&gt;
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
-# Mécanisme de flux d'énergie en réseaux trophiques 
+# Modèles mécanistiques d'interactions&lt;br&gt; prédateur-proie
 &lt;br&gt;
 &lt;hr width="45%" align="left" size="0.3" color="orange"&gt;&lt;/hr&gt;
 &lt;br&gt;
-## Séminaire 1 &lt;br&gt; PBI700
+## Séminaire de  &lt;br&gt; recherche II &lt;br&gt; PBI702
 &lt;br&gt;
 ## .font70[Benjamin Mercier, &lt;br&gt;.small[Étudiant à la maîtrise]]&lt;br&gt;&lt;br&gt;
 &lt;i class="fa fa-github fa-2x" style="color:#FAFAFA"&gt;&lt;/i&gt; [BenMerSci/master](https://github.com/BenMerSci/master)
+
+---
+
+# Introduction
+&lt;br&gt;
+.center[![:scale 70%](images/model_all_life.png)]
+&lt;br&gt;&lt;br&gt;
+
+.cite[Purves et al. 2013]
+
+---
+
+# Modèle général d'écosystème
+&lt;br&gt;
+.center[![:scale 85%](images/GEM.png)]
+
+.cite[Harfoot et al. 2014]
+
+---
+
+# Dynamique de prédation/consommation
+&lt;br&gt;
+&lt;p class="box"&gt;&lt;br&gt;
+.center[Logistiquement impossible d'échantilloner empiriquement]
+&lt;br&gt;&lt;/p&gt;
+&lt;br&gt;
+
+.center[
+  Trop d'interactions&lt;br&gt;
+  Biais dans les interactions
+]
+&lt;br&gt;
+&lt;hr width="80%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+.center[&amp;darr;]
+
+.center[Modélisation]
+
+.cite[Jordano et al. 2016]
+
+---
+
+# Justification
+
+&lt;p class="box"&gt;&lt;br&gt;
+.center[Plusieurs différents modèles existent déjà]
+&lt;br&gt;&lt;/p&gt;
+.center[.center[&amp;darr;]]
+
+.pull-left[.center[&lt;u&gt;Lotka-Volterra&lt;/u&gt;]&lt;br&gt;
+  .center[Semblant d'action de masse]
+  .center[![:scale 70%](images/brownian_motion.gif)]
+]
+
+.pull-right[.center[&lt;u&gt;Rozenzweig-MacArthur&lt;/u&gt;]
+&lt;br&gt;
+  .center[Modèle de saturation sur la consommation (temps alloué à la prédation et densité de proies)]
+]
+
+---
+
+# Justification (suite)
+
+&lt;p class="box"&gt;&lt;br&gt;
+.center[Modèles plus complexes]
+&lt;br&gt;&lt;/p&gt;
+.center[.center[&amp;darr;]]
+
+.pull-left[.center[&lt;u&gt;Modèle réseau-trophique-allométrique&lt;/u&gt;]&lt;br&gt;
+  .center[Données d'entrées plus complexes (taux)]
+]
+
+.pull-right[.center[&lt;u&gt;Modèles mécanistiques&lt;/u&gt;]&lt;br&gt;
+  .center[![:scale 100%](images/beardsell_mecanism.png)]
+]
+
+.cite[Brose et al. 2006, Berlow et al. 2009, Beardsell et al. 2021]
+
+---
+
+class: inverse
+
+# .center[Objectif]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[
+Développer un modèle mécanistique de prédiction de la prédation entre une proie et son prédateur, généralisable à plusieurs types d'interactions trophiques
+]
+
+---
+
+class: inverse
+
+# .center[Hypothèses]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+  **0. Modèle nul** &lt;br&gt;&lt;br&gt;
+  Le prédation entre une proie `\(i\)` et un prédateur `\(j\)` est déterminée par une constante (intercept nul)
+&lt;br&gt;
+&lt;hr width="80%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+  **1. Modèle d'action de masse général**&lt;br&gt;&lt;br&gt;
+  La prédation entre une proie `\(i\)` et un prédateur `\(j\)` est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche général des prédateurs
+]
+
+---
+
+class: inverse
+
+# .center[Hypothèses]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+  **2. Modèle d'action de masse spécifique**&lt;br&gt;&lt;br&gt;
+  La prédation entre une proie `\(i\)` et un prédateur `\(j\)` est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche spécifique à l'identité des prédateurs
+&lt;br&gt;
+&lt;hr width="80%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+  **3. Modèle de saturation**&lt;br&gt;&lt;br&gt;
+  La prédation entre une proie `\(i\)` et un prédateur `\(j\)` est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche spécifique, mais avec un effet de saturation lié au temps de traitement des proies
+]
+
+---
+
+# Modèles et équations
+
+**0. Modèle nul:** 
+.pull-left[
+  `$$F_{ij} = K$$`
+]
+
+.pull-right[
+  `\(K\)`: intercept constant
+]
+
+&lt;br&gt;
+&lt;hr width="100%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+**1. Action de masse général:**
+
+.pull-left[
+   `$$F_{ij} = \alpha \times B_i \times N_j$$`&lt;br&gt;
+]
+
+.pull-right[
+  `\(\alpha\)`: `\(\frac{km²}{individu \times année}\)`&lt;br&gt;&lt;br&gt;
+  `\(B_i\)`: `\(\frac{tonnes}{km²}\)`&lt;br&gt;&lt;br&gt;
+  `\(N_j\)`: `\(\frac{individu}{km²}\)`&lt;br&gt;
+]
+
+---
+
+# Modèles et équations (suite)
+**2. Action de masse prédateur spécifique:** 
+
+.pull-left[
+  `$$F_{ij} = \alpha_j \times B_i \times N_j$$`
+]
+
+.pull-right[
+  `\(\alpha_j\)`: `\(\frac{km²}{individu \times année}\)`
+]
+
+&lt;br&gt;
+&lt;hr width="100%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+**3. Saturation avec temps de traitement:**
+
+.pull-left[
+  `$$F_{ij} = \frac{\alpha_j \times B_i \times N_j}{1 + h_j \times \alpha_j \times sumB \times N_j}$$`
+]
+
+.pull-right[
+  `\(h_j\)`: `\(\frac{année \times km²}{tonnes}\)`&lt;br&gt;&lt;br&gt;
+  `\(sumB\)`: `\(\frac{tonnes}{km²}\)`
+
+]
+
+---
+
+# Les données
+.center[19 réseaux d'interactions]
+
+.center[![:scale 150%](images/network_map.png)]
+
+---
+
+# Les données (suite)
+
+- Jeu de données de 1380 interactions quantitatives
+- Flux de biomasse `\(F_{ij}\)` (tonnes/km²*année)
+- Biomasse proies `\(B_i\)` (tonnes/km²)
+- Biomasse prédateurs `\(B_j\)` (tonnes/km²)
+
+&lt;br&gt;
+&lt;hr width="100%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+.center[Autre base de donneés: &lt;br&gt;
+
+Masses corporelles prédateurs `\(M_j\)`]
+
+&lt;br&gt;
+&lt;p class="box"&gt;&lt;br&gt;
+.center[Abondance `\(N_j = \frac{B_j}{M_j}\)`]
+&lt;br&gt;&lt;/p&gt;
+
+---
+
+# Méthode
+
+1. Correspondance des espèces
+2. Résolution de la taxonomie
+3. Récupérer les traits d'espèces
+4. Formatter les réseaux d'interactions
+5. Modélisation
+
+---
+
+# Analyses
+
+.center[Modélisation avec Stan ![:scale 5%](images/stan_logo.png)]
+&lt;br&gt;
+&lt;hr width="100%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+- Langage de modélisation statistique Bayesian
+- Estimation des paramètres `\(\alpha\)` et `\(h_j\)`
+- Prédiction sur les données
+- R² et comparaison de modèles
+
+---
+
+# Classement des modèles
+
+&lt;br&gt;
+
+&lt;p class="box"&gt;&lt;br&gt;
+ .center[Classement réalisé avec une méthode similaire à l'AIC]
+&lt;br&gt;&lt;/p&gt;
+
+&lt;br&gt;
+.center[**Rangs:**
+
+|Modèle   |   elpd_diff|  se_diff|
+|:--------|-----------:|--------:|
+|modèle 4 |        0.00|     0.00|
+|modèle 3 |      -33.51|     9.69|
+|modèle 1 |     -731.68|    43.27|
+|modèle 2 |    -1416.58|    40.75|
+]
+
+---
+
+# Modèles 0 et 1
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[![:scale 100%](images/compare_0_1.png)]
+
+---
+
+# Modèles 1 et 2
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[![:scale 100%](images/compare_1_2.png)]
+
+---
+
+# Modèles 2 et 3
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[![:scale 100%](images/compare_2_3.png)]
+
+
+---
+
+# Paramètre `\(\alpha\)` - modèle 2
+.center[![:scale 75%](images/alpha_2.png)]
+
+---
+
+# Paramètre `\(\alpha\)` - modèle 3
+.center[![:scale 75%](images/alpha_4.png)]
+
+
+---
+
+# Paramètre `\(h_j\)` - modèle 3
+.center[![:scale 75%](images/hj_4.png)]
+
+---
+
+# Classement des modèles
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;p class="box"&gt;&lt;br&gt;
+ .center[Modèle 3 &gt; modèle 2 &gt; modèle 0 &gt; modèle 1]
+&lt;br&gt;&lt;/p&gt;
+
+&lt;br&gt;
+&lt;hr width="100%" align="center" size="2.0" color="orange"&gt;&lt;/hr&gt;
+&lt;br&gt;
+
+.center[&amp;darr;]
+
+.center[**Modèle 2 plus réaliste écologiquement**]
+
+---
+
+# Relations allométriques
+
+.center[![:scale 80%](images/relation_allo.png)]
+
+---
+
+# Relations allométriques
+
+.center[![:scale 75%](images/relation_speed.png)]
+
+.cite[Hirt et al. 2017]
+
+---
+
+# Conclusion
+- Récolter davantage d'interactions pour préciser les paramètres alpha
+- Formaliser la relation allométrique
+- Valider les modèles sur d'autres interactions trophiques
 
 ---
 
@@ -60,6 +395,14 @@ class:  middle, title-slide,
 .pull-rightfin[
   &lt;br&gt;
   ![:scale 200%](images/thanks2.png)]
+
+
+---
+
+# Supp. mat.
+
+.center[**Interactions**]
+.center[Terrestre: **298**  Aquatique: **187**  Marine: **895**]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -108,6 +451,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
