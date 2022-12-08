@@ -5,8 +5,8 @@ output:
   #  self_contained: TRUE
     includes:
       in_header: conf/style-header.html
-    lib_dir: assets
     seal: false
+    lib_dir: assets
     css: ["default", "conf/css/style.css", "conf/css/fonts.css"]
     nature:
       highlightStyle: solarized-light
@@ -40,284 +40,356 @@ xaringanExtra::use_editable(expires = 1)
 xaringanExtra::use_panelset()
 ```
 
-class:  middle, title-slide, 
+class:  middle, title-slide,
 
 <div class="my-logo-left"></div>
 <br><br><br>
-# Mécanismes de flux d'énergie en interactions trophiques 
+# Modèles mécanistiques d'interactions<br> prédateur-proie
 <br>
 <hr width="45%" align="left" size="0.3" color="orange"></hr>
 <br>
-## Deuxième rencontre  <br> de comité
+## Séminaire de  <br> recherche II <br> PBI702
 <br>
 ## .font70[Benjamin Mercier, <br>.small[Étudiant à la maîtrise]]<br><br>
 <i class="fa fa-github fa-2x" style="color:#FAFAFA"></i> [BenMerSci/master](https://github.com/BenMerSci/master)
 
 ---
-# Aperçu annuel
-- Maîtrise (construction du jeu de données et début analyse)
-- Participé/collaboré sur deux articles
-- Groupe de travail G3E benthos
-- Auxiliaire d'enseignement BIO109
-- Formations BIOS2: visualisation de données, site HUGO, package R, Shiny application
-- École d'été en modélisation de la biodiversité (Bayesien)
-- Stage KBA de 2 mois avec BIOS2 (Shiny application)
-- Assistant software carpentry
-- Quelques séances de bénévolat au centre d'entraide par les pairs en biologie
 
----
-class: inverse
-<br><br><br><br><br><br>
-.center[.font180[**Projet**]]
-<hr width="70%" align="center" size="2.0" color="orange"></hr>
-
----
-# Justification et préambule
-- Interactions quantitatives difficilement échantillonables
-- Beaucoup de Lotka-Volterra, moins de mécanistique
-- Beaucoup de développement de relations allométriques en interactions interspécifiques
-
+# Introduction
 <br>
-<hr width="100%" align="center" size="2.0" color="orange"></hr>
-<br>
+.center[![:scale 70%](images/model_all_life.png)]
+<br><br>
 
-
-- Pawar 2012: relations allométriques vitesse et dimensionalité<br>
-- Brose 2010, Schneider 2016: foraging contraint allométriquement (recherche et métabolisme)<br>
-- Hirt 2017-2019: relations allométriques vitesse<br>
-- CLoyed 2021: complexité de l'habitat
-
+.cite[Purves et al. 2013]
 
 ---
-# Objectifs
+
+# Modèle général d'écosystème
+<br>
+.center[![:scale 85%](images/GEM.png)]
+
+.cite[Harfoot et al. 2014]
+
+---
+
+# Dynamique de prédation/consommation
 <br>
 <p class="box"><br>
-.center[Développer un modèle mécanistique de prédiction des flux de biomasse entre une proie et son prédateur, généralisable à plusieurs types d'interaction trophique]
+.center[Logistiquement impossible d'échantilloner empiriquement]
 <br></p>
-<hr width="100%" align="center" size="2.0" color="orange"></hr>
 <br>
-
-.center[- Comparaison avec un modèle phénoménologique (RandomForest)]
-<br>
-.center[- Comparaison inter-écosystème et définir si possible les paramètres clés respectivement]
-
----
-# Hypothèses
-
-**1. Modèle nul:** Flux définis par une constante
-<br><br>
-
-**2. Mass action constant:** Flux définis par l'abondance des proies et prédateurs, normalisé par une constante fixe
-<br><br>
-
-**3. Mass action prédateur:** Flux définis par l'abondance des proies et prédateurs, normalisé par une constante prédateur-spécifique
-<br><br>
-
-**4. Mass action prédateur-proie:** Flux définis par l'abondance des proies et prédateurs, normalisé par une constante d'interaction
-<br><br>
-
-**5. Saturation neutre:** Saturation des flux avec l'augmentation de l'abondance des proies
-<br><br>
-
-**6. Saturation trait-matching:** Saturation des flux per capita selon un trait-matching predateur-proie
-
----
-# Modèles et équations
-
-**1. Modèle nul:** 
-.pull-left[
-  $$F_{ij}^{real} = K_j$$
-]
-
-.pull-right[
-  où $K_j$ est une constante
-]
-
-<hr width="95%" align="center" size="2.0" color="orange"></hr>
-<br>
-
-**2. Mass action constant:**
-
-.pull-left[
-   $F_{ij}^{real} = \alpha*N_i*N_j*M_i$
-]
-
-.pull-right[
-  où<br>
-  $\alpha$ est une constante<br>
-  $N_i$ est l'abondance de la proie<br>
-  $N_j$ est l'abondance du prédateur<br>
-  $M_i$ est la masse de la proie
-]
-
----
-# Modèles et équations
-
-**3. Mass action prédateur:** 
-
-.pull-left[
-  $F_{ij}^{real} = \alpha_j*N_i*N_j*M_i$
-]
-
-.pull-right[
-  où<br>
-  $\alpha_j$ est une constante spécifique au prédateur
-]
-
-<hr width="100%" align="center" size="2.0" color="orange"></hr>
-
-**4. Mass action prédateur-proie:**
-
-.pull-left[
-  $F_{ij}^{real} = \alpha_{ij}*N_i*N_j*M_i$<br>
-  $\alpha_{ij} = \frac{\phi_j}{D_j}$
-]
-
-.pull-right[
-  où<br>
-  $\phi_j$ est une constante prédateur-spécifique<br>
-  $D_j$ est le degré du prédateur
-]
----
-# Modèles et équations
-
-**5. Saturation neutre:**
-
-.pull-left[
-  $F_{ij}^{real} = \frac{F_{ij}^{max}}{1+h_j*\sum{F_{ij}^{max}}}$
-]
-
-.pull-right[
-  où<br>
-  $F_{ij}^{max} = \alpha_{ij}*N_i*N_j*M_i$ et $\alpha_{ij} = \frac{\phi_j}{D_j}$
-]
-
-<hr width="100%" align="center" size="2.0" color="orange"></hr>
-
-**6. Saturation trait-matching:**
-
-.pull-left[
-  $F_{ij}^{real} = \frac{F_{ij}^{max}}{1+h_j*\sum{F_{ij}^{max}}}$
-]
-
-.pull-right[
-  où<br>
-  $F_{ij}^{max} = \alpha_{ij}*N_i*N_j*M_i$<br>
-  $\alpha_{ij} = f(M_i,M_j,D)$
-]
 
 .center[
-  $\alpha_{ij} =$ probabilité d'attaque x succès d'attaque x probabilité de rencontre 
+  Trop d'interactions<br>
+  Biais dans les interactions
+]
+<br>
+<hr width="80%" align="center" size="2.0" color="orange"></hr>
+<br>
+
+.center[&darr;]
+
+.center[Modélisation]
+
+.cite[Jordano et al. 2016]
+
+---
+
+# Justification
+
+<p class="box"><br>
+.center[Plusieurs différents modèles existent déjà]
+<br></p>
+.center[.center[&darr;]]
+
+.pull-left[.center[<u>Lotka-Volterra</u>]<br>
+  .center[Semblant d'action de masse]
+  .center[![:scale 70%](images/brownian_motion.gif)]
+]
+
+.pull-right[.center[<u>Rozenzweig-MacArthur</u>]
+<br>
+  .center[Modèle de saturation sur la consommation (temps alloué à la prédation et densité de proies)]
+]
+
+---
+
+# Justification (suite)
+
+<p class="box"><br>
+.center[Modèles plus complexes]
+<br></p>
+.center[.center[&darr;]]
+
+.pull-left[.center[<u>Modèle réseau-trophique-allométrique</u>]<br>
+  .center[Données d'entrées plus complexes (taux)]
+]
+
+.pull-right[.center[<u>Modèles mécanistiques</u>]<br>
+  .center[![:scale 100%](images/beardsell_mecanism.png)]
+]
+
+.cite[Brose et al. 2006, Berlow et al. 2009, Beardsell et al. 2021]
+
+---
+
+class: inverse
+
+# .center[Objectif]
+
+<br><br><br>
+
+.center[
+Développer un modèle mécanistique de prédiction de la prédation entre une proie et son prédateur, généralisable à plusieurs types d'interactions trophiques
+]
+
+---
+
+class: inverse
+
+# .center[Hypothèses]
+
+<br><br><br>
+.center[
+  **0. Modèle nul** <br><br>
+  Le prédation entre une proie $i$ et un prédateur $j$ est déterminée par une constante (intercept nul)
+<br>
+<hr width="80%" align="center" size="2.0" color="orange"></hr>
+<br>
+  **1. Modèle d'action de masse général**<br><br>
+  La prédation entre une proie $i$ et un prédateur $j$ est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche général des prédateurs
+]
+
+---
+
+class: inverse
+
+# .center[Hypothèses]
+
+<br><br><br>
+.center[
+  **2. Modèle d'action de masse spécifique**<br><br>
+  La prédation entre une proie $i$ et un prédateur $j$ est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche spécifique à l'identité des prédateurs
+<br>
+<hr width="80%" align="center" size="2.0" color="orange"></hr>
+<br>
+  **3. Modèle de saturation**<br><br>
+  La prédation entre une proie $i$ et un prédateur $j$ est déterminée par la biomasse des proies, l'abondance des prédateurs et un taux de recherche spécifique, mais avec un effet de saturation lié au temps de traitement des proies
+]
+
+---
+
+# Modèles et équations
+
+**0. Modèle nul:** 
+.pull-left[
+  $$F_{ij} = K$$
+]
+
+.pull-right[
+  $K$: intercept constant
 ]
 
 <br>
 <hr width="100%" align="center" size="2.0" color="orange"></hr>
-
----
-# Plan d'analyse
-- Fitter les modèles par Simulated annealing généralisé
-- Effectuer les prédictions/validations
-- Calculer des AIC et R²
-- Classer les modèles selon les valeurs d'AIC/R²
-
----
-# Les données
-.center[116 réseaux Ecopath [(Jacquet et al. 2016)](https://www.nature.com/articles/ncomms12573)]
-
-<hr width="95%" align="center" size="2.0" color="orange"></hr>
 <br>
-.center[**Résumé méthode Ecopath:**]
-- Flux de biomasse (g/m²/année) entre espèces ou groupes fonctionnels
-- Système mass-balanced: .font60[$$\frac{dB_i}{dt}=0$$]
-- **Paramètres initiaux:** Biomasse, ratio production/biomasse, ratio consommation/biomasse, efficacité écotrophique et composition de la diète
 
-<br><br>
-.center[**Attention circularité?**]
+**1. Action de masse général:**
 
-<!--.center[Production = Capture + Accumulation biomasse + <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predation mortalité + migration nette + autre mortalité]--->
+.pull-left[
+   $$F_{ij} = \alpha \times B_i \times N_j$$<br>
+]
 
----
-# Traitements de données
-1. Correspondance des espèces entre réseaux et articles
-2. Formattage des matrices d'interactions
-3. Résoudre la taxonomie
-4. Correspondance des réseaux avec Ecobase 
-5. Récupérer les traits d'espèces
-6. Récupérer les traits de l'environnement
-7. Créer la table finale d'interactions
+.pull-right[
+  $\alpha$: $\frac{km²}{individu \times année}$<br><br>
+  $B_i$: $\frac{tonnes}{km²}$<br><br>
+  $N_j$: $\frac{individu}{km²}$<br>
+]
 
 ---
-# Les données utilisées 
+
+# Modèles et équations (suite)
+**2. Action de masse prédateur spécifique:** 
+
+.pull-left[
+  $$F_{ij} = \alpha_j \times B_i \times N_j$$
+]
+
+.pull-right[
+  $\alpha_j$: $\frac{km²}{individu \times année}$
+]
+
+<br>
+<hr width="100%" align="center" size="2.0" color="orange"></hr>
+<br>
+
+**3. Saturation avec temps de traitement:**
+
+.pull-left[
+  $$F_{ij} = \frac{\alpha_j \times B_i \times N_j}{1 + h_j \times \alpha_j \times sumB \times N_j}$$
+]
+
+.pull-right[
+  $h_j$: $\frac{année \times km²}{tonnes}$<br><br>
+  $sumB$: $\frac{tonnes}{km²}$
+
+]
+
+---
+
+# Les données
+.center[19 réseaux d'interactions]
+
 .center[![:scale 150%](images/network_map.png)]
 
 ---
-# Les interactions
-.center[Organismes: <br><br> .center[![:scale 60%](images/organism.png)]]
-<br>
-<hr width="95%" align="center" size="2.0" color="orange"></hr>
-<br>
-.center[935 interactions entre espèces &rarr; 566 interactions uniques]
-<br>
-<br>
-```{r, include=FALSE}
-library(knitr)
-library(kableExtra)
-library(dplyr)
-dataset <- readRDS("../master/data/clean/dataset.RDS")
-habitat_df <- data.frame(terrestrial = nrow(dataset[which(dataset$habitat_type == "terrestrial"),]), 
-                         freshwater = nrow(dataset[which(dataset$habitat_type == "freshwater"),]),
-                         marine = nrow(dataset[which(dataset$habitat_type == "marine"),]))
-habitat_df_unique <- data.frame(terrestrial = nrow(unique(dataset[which(dataset$habitat_type == "terrestrial"),c("prey","predator")])), 
-                         freshwater = nrow(unique(dataset[which(dataset$habitat_type == "freshwater"),c("prey","predator")])),
-                         marine = nrow(unique(dataset[which(dataset$habitat_type == "marine"),c("prey","predator")])))
-#rownames(habitat_df) <- "Number of unique interactions"
-```
 
-.pull-left[
-```{r, echo=FALSE}
-kable(habitat_df, align = "ccc", caption = "Nombre d'interaction par type habitat")
-```
-]
-.pull-right[
-```{r, echo=FALSE}
-kable(habitat_df_unique, align="ccc", caption="Nombre d'interaction unique par type d'habitat")
-```
+# Les données (suite)
+
+- Jeu de données de 1380 interactions quantitatives
+- Flux de biomasse $F_{ij}$ (tonnes/km²*année)
+- Biomasse proies $B_i$ (tonnes/km²)
+- Biomasse prédateurs $B_j$ (tonnes/km²)
+
+<br>
+<hr width="100%" align="center" size="2.0" color="orange"></hr>
+<br>
+
+.center[Autre base de donneés: <br>
+
+Masses corporelles prédateurs $M_j$]
+
+<br>
+<p class="box"><br>
+.center[Abondance $N_j = \frac{B_j}{M_j}$]
+<br></p>
+
+---
+
+# Méthode
+
+1. Correspondance des espèces
+2. Résolution de la taxonomie
+3. Récupérer les traits d'espèces
+4. Formatter les réseaux d'interactions
+5. Modélisation
+
+---
+
+# Analyses
+
+.center[Modélisation avec Stan ![:scale 5%](images/stan_logo.png)]
+<br>
+<hr width="100%" align="center" size="2.0" color="orange"></hr>
+<br>
+
+- Langage de modélisation statistique Bayesian
+- Estimation des paramètres $\alpha$ et $h_j$
+- Prédiction sur les données
+- R² et comparaison de modèles
+
+---
+
+# Classement des modèles
+
+<br>
+
+<p class="box"><br>
+ .center[Classement réalisé avec une méthode similaire à l'AIC]
+<br></p>
+
+<br>
+.center[**Rangs:**
+
+|Modèle   |   elpd_diff|  se_diff|
+|:--------|-----------:|--------:|
+|modèle 4 |        0.00|     0.00|
+|modèle 3 |      -33.51|     9.69|
+|modèle 1 |     -731.68|    43.27|
+|modèle 2 |    -1416.58|    40.75|
 ]
 
 ---
-# Les traits
-.panelset[
 
-.panel[.panel-name[Organismes]
-- Biomasse (g/m²)
-- Masse corporelle (g)
-- Estimé d'abondance selon biomasse et masse corporelle
-- Degré des prédateurs (nombre de proies)
-- Classe métabolique
-- Vitesse (?)
-]
+# Modèles 0 et 1
 
-.panel[.panel-name[Environnement]
-- Température de l'air
-- Température de l'eau (surface)
-- Type d'ecosystème
-- Type d'habitat
-- Dimmensionalité de l'interaction
-]
-]
+<br><br><br>
+
+.center[![:scale 100%](images/compare_0_1.png)]
 
 ---
-# Figures préliminaires
-.center[![:scale 70%](images/flux_ppmr.png)]
+
+# Modèles 1 et 2
+
+<br><br><br>
+
+.center[![:scale 100%](images/compare_1_2.png)]
 
 ---
-# Analyses préliminaires
-.center[![:scale 70%](images/rf_model.png)]
 
-.center[![:scale 50%](images/rf_variable.png)]
+# Modèles 2 et 3
+
+<br><br><br>
+
+.center[![:scale 100%](images/compare_2_3.png)]
+
 
 ---
+
+# Paramètre $\alpha$ - modèle 2
+.center[![:scale 75%](images/alpha_2.png)]
+
+---
+
+# Paramètre $\alpha$ - modèle 3
+.center[![:scale 75%](images/alpha_4.png)]
+
+
+---
+
+# Paramètre $h_j$ - modèle 3
+.center[![:scale 75%](images/hj_4.png)]
+
+---
+
+# Classement des modèles
+
+<br><br><br><br>
+<p class="box"><br>
+ .center[Modèle 3 > modèle 2 > modèle 0 > modèle 1]
+<br></p>
+
+<br>
+<hr width="100%" align="center" size="2.0" color="orange"></hr>
+<br>
+
+.center[&darr;]
+
+.center[**Modèle 2 plus réaliste écologiquement**]
+
+---
+
+# Relations allométriques
+
+.center[![:scale 80%](images/relation_allo.png)]
+
+---
+
+# Relations allométriques
+
+.center[![:scale 75%](images/relation_speed.png)]
+
+.cite[Hirt et al. 2017]
+
+---
+
+# Conclusion
+- Récolter davantage d'interactions pour préciser les paramètres alpha
+- Formaliser la relation allométrique
+- Valider les modèles sur d'autres interactions trophiques
+
+---
+
 # Remerciements
 
 .pull-left1[
@@ -335,6 +407,10 @@ kable(habitat_df_unique, align="ccc", caption="Nombre d'interaction unique par t
   <br>
   ![:scale 200%](images/thanks2.png)]
 
+
 ---
-# Icons
-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+# Supp. mat.
+
+.center[**Interactions**]
+.center[Terrestre: **298**  Aquatique: **187**  Marine: **895**]
